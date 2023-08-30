@@ -76,20 +76,20 @@ class Neo4jGraphStore(GraphStore):
                 "'apoc.meta.data()' is allowed in Neo4j configuration "
             )
         # Create constraint for faster insert and retrieval
-        try:  # Using Neo4j 5
-            self.query(
-                """
-                CREATE CONSTRAINT IF NOT EXISTS FOR (n:%s) REQUIRE n.id IS UNIQUE; 
-                """
-                % (self.node_label)
-            )
-        except Exception:  # Using Neo4j <5
-            self.query(
-                """
-                CREATE CONSTRAINT IF NOT EXISTS ON (n:%s) ASSERT n.id IS UNIQUE; 
-                """
-                % (self.node_label)
-            )
+        # try:  # Using Neo4j 5
+        #     self.query(
+        #         """
+        #         CREATE CONSTRAINT IF NOT EXISTS FOR (n:%s) REQUIRE n.id IS UNIQUE; 
+        #         """
+        #         % (self.node_label)
+        #     )
+        # except Exception:  # Using Neo4j <5
+        #     self.query(
+        #         """
+        #         CREATE CONSTRAINT IF NOT EXISTS ON (n:%s) ASSERT n.id IS UNIQUE; 
+        #         """
+        #         % (self.node_label)
+        #     )
 
     @property
     def client(self) -> Any:
