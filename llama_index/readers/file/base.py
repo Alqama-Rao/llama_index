@@ -222,3 +222,36 @@ class SimpleDirectoryReader(BaseReader):
                 documents.append(doc)
 
         return documents
+
+
+    @staticmethod
+    def custom_load_data(Data) -> List[Document]:
+    
+        """Load data from the input directory.
+
+        Returns:
+            List[Document]: A list of documents.
+        """
+        documents = []
+        for page_number, page_data in Data["Pages"].items():
+            document = Document(
+            id_=str(uuid.uuid4()),
+            embedding=None,
+            metadata={
+                "page_label": str(page_data["page_label"]),
+                "file_name": Data["file_name"]
+            },
+            excluded_embed_metadata_keys=[],
+            excluded_llm_metadata_keys=[],
+            relationships={},
+            hash_=None,
+            text="\n".join(page_data["Paragraphs"].values()),
+            start_char_idx=None,
+            end_char_idx=None,
+            text_template="{metadata_str}\n\n{content}",
+            metadata_template="{key}: {value}",
+            metadata_seperator="\n"
+            )
+            documents.append(document)
+        
+        return documents
