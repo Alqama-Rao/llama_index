@@ -3,6 +3,7 @@ import logging
 import os
 from pathlib import Path
 from typing import Callable, Dict, Generator, List, Optional, Type
+import uuid
 
 from llama_index.readers.base import BaseReader
 from llama_index.readers.file.docs_reader import DocxReader, PDFReader
